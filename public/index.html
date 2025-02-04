@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="welcome-screen">
+            <h1><i class="fas fa-comments"></i> Random Chat</h1>
+            <p class="tagline">Chat instantly with random people around the world!</p>
+            <div class="online-count">
+                <i class="fas fa-users"></i> <span id="user-count">0</span> users online
+            </div>
+            <div class="start-options">
+                <input type="text" id="nickname" placeholder="Enter your nickname (optional)" maxlength="20">
+                <button id="start-chat" class="pulse-button">
+                    <i class="fas fa-comments"></i> Start Chatting
+                </button>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-random"></i>
+                    <p>Random Matching</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-user-secret"></i>
+                    <p>Anonymous Chat</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <p>Instant Connect</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="chat-container" style="display: none;">
+            <div class="chat-header">
+                <button id="leave-chat" class="icon-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="chat-info">
+                    <div id="status">Looking for someone to chat with...</div>
+                    <div id="typing-indicator"></div>
+                </div>
+                <button id="next-button" title="Find new partner">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+            <div id="chat-messages"></div>
+            <div class="input-area">
+                <input type="text" id="message-input" placeholder="Type your message...">
+                <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
