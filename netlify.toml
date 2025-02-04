@@ -4,8 +4,19 @@
 
 [functions]
   directory = "functions"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200 
+  status = 200
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+[dev]
+  framework = "#custom"
+  command = "npm run dev"
+  targetPort = 3000
+  port = 8888
+  publish = "public" 

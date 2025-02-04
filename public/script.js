@@ -1,6 +1,9 @@
 const socket = io({
     path: '/.netlify/functions/socketio',
-    transports: ['websocket']
+    transports: ['websocket', 'polling'],
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000
 });
 let typingTimeout = null;
 
@@ -203,4 +206,21 @@ function handleSwipe() {
         findNewPartner();
         vibrate(100);
     }
-} 
+}
+
+// Add connection status handling
+socket.on('connect', () => {
+    console.log('Connected to server');
+    document.body.classList.remove('disconnected');
+});
+
+socket.on('disconnect', () => {
+    console.log('Disconnected from server');
+    document.body.classList.add('disconnected');
+    status.textContent = 'Disconnected from server. Trying to reconnect...';
+});
+
+socket.on('connect_error', (error) => {
+    console.log('Connection error:', error);
+    status.textContent = 'Connection error. Trying to reconnect...';
+}); 
