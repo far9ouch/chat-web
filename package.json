@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "netlify-lambda build functions",
+    "build": "netlify-lambda build functions --config ./webpack.config.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
@@ -17,7 +17,12 @@
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.12.0",
+    "babel-loader": "^8.2.0",
+    "nodemon": "^2.0.15",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.9.0"
   },
   "engines": {
     "node": "14.x"
