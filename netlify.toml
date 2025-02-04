@@ -1,14 +1,19 @@
 [build]
-  command = "npm install"
+  command = "npm run build"
+  functions = "functions"
   publish = "public"
 
 [functions]
-  directory = "functions"
   node_bundler = "esbuild"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/socket.io/*"
+  to = "/.netlify/functions/socketio"
   status = 200
 
 [[plugins]]
