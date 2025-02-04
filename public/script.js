@@ -75,6 +75,7 @@ function sendMessage() {
         socket.emit('send-message', { message, nickname });
         messageInput.value = '';
         socket.emit('typing', false);
+        vibrate();
     }
 }
 
@@ -123,4 +124,80 @@ socket.on('partner-typing', (isTyping) => {
 
 socket.on('user-count', (count) => {
     userCountSpan.textContent = count;
-}); 
+});
+
+// Add these functions at the beginning
+function preventZoom(e) {
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}
+
+document.addEventListener('touchstart', preventZoom, { passive: false });
+
+// Add vibration feedback
+function vibrate(duration = 50) {
+    if (navigator.vibrate) {
+        navigator.vibrate(duration);
+    }
+}
+
+// Add sound loading with fallback
+function loadSound(url) {
+    const audio = new Audio();
+    audio.src = url;
+    audio.load();
+    return {
+        play: () => {
+            if (!document.hidden) {
+                audio.play().catch(() => {});
+            }
+        }
+    };
+}
+
+// Update sound effects
+const messageSound = loadSound('https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3');
+const connectSound = loadSound('https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3');
+
+// Add orientation change handling
+window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.style.height = window.innerHeight + 'px';
+    }, 200);
+});
+
+// Improve typing indicator
+function updateTypingIndicator(isTyping) {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (isTyping) {
+        typingIndicator.style.display = 'flex';
+    } else {
+        typingIndicator.style.display = 'none';
+    }
+}
+
+socket.on('partner-typing', updateTypingIndicator);
+
+// Add mobile swipe for next chat
+let touchStartX = 0;
+let touchEndX = 0;
+
+chatContainer.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+chatContainer.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 100;
+    if (touchEndX - touchStartX > swipeThreshold) {
+        // Swipe right - find new partner
+        findNewPartner();
+        vibrate(100);
+    }
+} 

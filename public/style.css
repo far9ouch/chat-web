@@ -266,4 +266,148 @@ button:hover {
 
 .sent .message-timestamp {
     color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+        padding: 10px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #welcome-screen {
+        margin: 10px;
+        padding: 20px;
+        flex: 1;
+    }
+
+    #chat-container {
+        margin: 0;
+        height: 100vh;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #chat-messages {
+        flex: 1;
+        height: auto;
+    }
+
+    .features {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .feature {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+
+    #nickname {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* Tablet Specific */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        margin: 10px auto;
+    }
+
+    .features {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1c2c 0%, #4a1c64 100%);
+    }
+
+    #welcome-screen {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    #welcome-screen h1 {
+        color: #fff;
+    }
+
+    .tagline, .feature p {
+        color: #ddd;
+    }
+
+    #chat-container {
+        background-color: #1a1c2c;
+        color: #fff;
+    }
+
+    #message-input {
+        background-color: #2a2d3e;
+        color: #fff;
+        border-color: #3a3d4e;
+    }
+
+    .received {
+        background-color: #2a2d3e;
+        color: #fff;
+    }
+
+    .message.system {
+        background-color: #3a2a2a;
+        color: #ffa7a7;
+    }
+}
+
+/* Animations and Improvements */
+.message {
+    transition: transform 0.2s;
+}
+
+.message:hover {
+    transform: translateY(-2px);
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #666;
+    border-radius: 50%;
+    animation: typingDot 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+}
+
+/* Improved Input Area */
+.input-area {
+    position: relative;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-top: 10px;
 } 
