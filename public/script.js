@@ -1,4 +1,7 @@
-const socket = io();
+const socket = io({
+    path: '/.netlify/functions/socketio',
+    transports: ['websocket']
+});
 let typingTimeout = null;
 
 // DOM Elements
