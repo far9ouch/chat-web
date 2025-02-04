@@ -5,16 +5,17 @@
 
 [functions]
   node_bundler = "esbuild"
-  directory = "functions-build"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  external_node_modules = ["socket.io"]
 
 [[redirects]]
   from = "/socket.io/*"
   to = "/.netlify/functions/socketio"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [[plugins]]
