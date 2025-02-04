@@ -7,7 +7,7 @@
     "start": "node server.js",
     "build": "netlify-lambda build functions",
     "dev": "nodemon server.js",
-    "clean": "if exist node_modules rmdir /s /q node_modules && if exist functions-build rmdir /s /q functions-build && if exist package-lock.json del package-lock.json"
+    "clean": "powershell -Command \"Remove-Item -Path node_modules,functions-build -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item package-lock.json -Force -ErrorAction SilentlyContinue\""
   },
   "dependencies": {
     "@netlify/functions": "^1.6.0",
